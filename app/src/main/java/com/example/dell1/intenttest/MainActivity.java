@@ -64,6 +64,39 @@ public class MainActivity extends Activity {
                     Cursor cursor = cursorLoader.loadInBackground();
                     // 如果查询到指定的联系人
                     if (cursor != null && cursor.moveToFirst()) {
+                        
+                        
+                        
+                        /**
+                        真机读取不到电话号码 把相应的地方换成如下代码
+                        name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.
+                                  Phone.DISPLAY_NAME));
+
+                        phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.
+                                   Phone.NUMBER));
+                        
+                        
+                        */
+                        
+                        
+                        
+                        
+                        
+                 
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         String contactId = cursor.getString(
                                 cursor.getColumnIndex(ContactsContract.Contacts._ID));
                         // 获取联系人的名字
