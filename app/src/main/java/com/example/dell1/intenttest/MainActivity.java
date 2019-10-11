@@ -13,10 +13,15 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends Activity {
 
-    private static final int PICK_CONTACT = 0;
-    private   TextView phone;
+
+  private static final int PICK_CONTACT = 0;
+  private   TextView phone;
+  private   String name,phoneNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +62,27 @@ public class MainActivity extends Activity {
             case PICK_CONTACT:
                 if (resultCode == Activity.RESULT_OK) {
                     // 获取返回的数据
-                    Uri contactData = data.getData();
+                   Uri contactData = data.getData();
+
 
                     CursorLoader cursorLoader = new CursorLoader(this, contactData, null, null, null, null);
                     // 查询联系人信息
                     Cursor cursor = cursorLoader.loadInBackground();
+                    if (cursor != null && cursor.moveToFirst()){
+                         name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.
+                        Phone.DISPLAY_NAME));
+
+                        phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.
+                                Phone.NUMBER));
+
+                    }
+
+
+
+
+
                     // 如果查询到指定的联系人
-                    if (cursor != null && cursor.moveToFirst()) {
+                /*    if (cursor != null && cursor.moveToFirst()) {
                         String contactId = cursor.getString(
                                 cursor.getColumnIndex(ContactsContract.Contacts._ID));
                         // 获取联系人的名字
@@ -75,24 +94,24 @@ public class MainActivity extends Activity {
                         Cursor phones = getContentResolver().query(
                                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID  +
-                                        " = " + contactId, null, null);
+                                        " = " + contactId, null, null);*/
 
                      //   phone.setText(phones.toString() + phones.moveToFirst() );
-                        if (phones != null && phones.moveToFirst()) {
+                       /* if (phones != null && phones.moveToFirst()) {
                             // 取出电话号码
                             phoneNumber = phones.getString(
                                     phones.getColumnIndex(ContactsContract.
                                             CommonDataKinds.Phone.NUMBER));
-                        }
+                        }*/
                         // 关闭游标
-                        if (phones != null) phones.close();
+                     //   if (phones != null) phones.close();
                         TextView show = findViewById(R.id.show);
                         // 显示联系人的名称
                         show.setText(name);
                         // TextView phone = findViewById(R.id.phone);
                         // 显示联系人的电话号码
                        phone.setText(phoneNumber);
-                    }
+                 //   }
                     // 关闭游标
                     if (cursor != null) cursor.close();
                 }
